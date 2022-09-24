@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.model.Produto;
+import br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.service.CsvService;
 import br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.service.ProdutoService;
 
 @RestController
@@ -20,6 +21,9 @@ public class ProdutoController {
 
     @Autowired
     ProdutoService produtoService;
+
+    @Autowired
+    CsvService csvService;
 
     @GetMapping
     public ResponseEntity listar() {
@@ -30,9 +34,10 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity exibir(@PathVariable long id) {
+    public ResponseEntity exibirUm(@PathVariable long idP) {
         try {
-            var produto = produtoService.exibir(id);
+            var produto = produtoService.exibir(idP);
+            csvService.ProdutoToCsv(produto);
             return ResponseEntity.ok().body(produto);
         } catch (Exception e) {
             return ResponseEntity
@@ -50,7 +55,7 @@ public class ProdutoController {
             .body("Dados incorretos.");
 
         produto = produtoService.salvar(produto);
-        if (produto.getId() != 0)
+        if (produto.getIdP() != 0)
             return ResponseEntity.status(201).body(produto);
 
         return ResponseEntity.status(500).body("Erro interno.");
@@ -62,7 +67,7 @@ public class ProdutoController {
                 produto.getMarca() == null)
                     return ResponseEntity.status(400)
                         .body("Dados incorretos.");
-        produto.setId(id);
+        produto.setIdP(id);
         produto = produtoService.salvar(produto);
         return ResponseEntity.status(201).body(produto);
     }

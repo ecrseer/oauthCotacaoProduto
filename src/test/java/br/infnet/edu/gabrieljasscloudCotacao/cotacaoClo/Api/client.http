@@ -8,27 +8,46 @@ POST http://localhost:8081/oauth/token
 Content-Type: application/x-www-form-urlencoded
 Authorization: Basic client-id-test:client-secret-test
 
-grant_type=password&username=cece&password=123
+grant_type=password&username=tresquatro&password=123
 // informações de um usuário
 
+###
+
+POST http://localhost:8081/usuarios
+Content-Type: application/json
+
+{
+  "id": 0,
+  "nome": "string",
+  "email": "string",
+  "password": "123",
+  "username": "tresquatro"
+}
 
 ###
 GET http://localhost:8081/produtos
-Authorization: Bearer dba4Qli-tYWyGHKm4e0LnKWa5Lg
+Authorization: Bearer aDygfgus7anZFH0rF4aq7WwNAM0
 
 ###
 
 GET  http://localhost:8081/produtos/1
-Authorization: Bearer dba4Qli-tYWyGHKm4e0LnKWa5Lg
+Authorization: Bearer X6frajBDEALRKR6ev2Ah3O28bMU
 
-###
-
+### Cadastra produto
 POST http://localhost:8081/produtos
+Authorization: Bearer fbO7ceFHJBX4wYeYEcLxVUf6QTY
 Content-Type: application/json
 
 {
-    "nome": "Notebook",
-    "marca": "Tilibra"
+    "nome": "Pasta de amendoin",
+    "marca": "Eskik",
+    "cotacoes": [
+    {
+      "nome": "INTERNET",
+      "fornecedor": "OLX",
+      "precoCotado": 20
+    }
+  ]
 }
 
 ###
