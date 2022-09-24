@@ -1,0 +1,94 @@
+###
+GET http://localhost:8081
+
+###
+# Authorization: Basic username:password
+###
+POST http://localhost:8081/oauth/token
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic client-id-test:client-secret-test
+
+grant_type=password&username=cece&password=123
+// informações de um usuário
+
+
+###
+GET http://localhost:8081/produtos
+Authorization: Bearer dba4Qli-tYWyGHKm4e0LnKWa5Lg
+
+###
+
+GET  http://localhost:8081/produtos/1
+Authorization: Bearer dba4Qli-tYWyGHKm4e0LnKWa5Lg
+
+###
+
+POST http://localhost:8081/produtos
+Content-Type: application/json
+
+{
+    "nome": "Notebook",
+    "marca": "Tilibra"
+}
+
+###
+
+PUT http://localhost:8080/produtos/1
+Content-Type: application/json
+
+{
+    "marca": "Dell"
+}
+###
+
+PATCH http://localhost:8080/produtos/1
+Content-Type: application/json
+
+{
+    "nome": "Notebook"
+}
+
+###
+
+DELETE http://localhost:8080/produtos/1
+###
+
+GET http://localhost:8080/usuarios
+###
+
+GET http://localhost:8080/usuarios/1
+###
+
+POST http://localhost:8080/usuarios
+Content-Type: application/json
+
+{
+    "nome": "Thiago",
+    "email": "thi@go.com",
+    "senha": "654321",
+    "perfil": "admin"
+}
+
+###
+
+POST http://localhost:8080/usuarios
+Content-Type: application/json
+
+{
+    "nome": "Thiago",
+    "email": "thi@go.com"
+}
+###
+
+PUT http://localhost:8080/usuarios
+Content-Type: application/json
+
+{
+    "nome": "Thiago",
+    "email": "thi@go.com",
+    "senha": "654321",
+    "perfil": "admin"
+}
+###
+
+DELETE http://localhost:8080/usuarios/1
