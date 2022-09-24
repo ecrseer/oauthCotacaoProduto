@@ -16,7 +16,7 @@ public class CsvService {
     public void ProdutoToCsv(Produto p) {
         String rootDir = System.getProperty("user.dir");
 
-        String baseUri = "src.main.java.br.edu.infnet.gabrieljcloudprodutocotacaoat.gjprodutcot";
+        String baseUri = "src.main.java.br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo";
         String separator = FileSystems.getDefault().getSeparator();
         String uri = rootDir + separator + baseUri.replaceAll("\\.", separator) + separator + p.getNome() + ".csv";
         System.out.println(uri);

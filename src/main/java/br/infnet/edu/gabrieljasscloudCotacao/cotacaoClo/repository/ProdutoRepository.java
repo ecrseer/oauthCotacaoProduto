@@ -7,4 +7,6 @@ import br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.model.Produto;
 
 @Repository
 public interface ProdutoRepository 
-    extends JpaRepository<Produto, Long> {}
+    extends JpaRepository<Produto, Long> {
+        Produto findByIdP(long IdP);
+    }

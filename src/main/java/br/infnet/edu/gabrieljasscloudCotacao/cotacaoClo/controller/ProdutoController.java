@@ -33,13 +33,14 @@ public class ProdutoController {
         return ResponseEntity.ok().body(produtos);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{idP}")
     public ResponseEntity exibirUm(@PathVariable long idP) {
         try {
             var produto = produtoService.exibir(idP);
             csvService.ProdutoToCsv(produto);
             return ResponseEntity.ok().body(produto);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseEntity
                     .status(404)
                     .body("Nenhum produto encontrado.");
@@ -61,13 +62,13 @@ public class ProdutoController {
         return ResponseEntity.status(500).body("Erro interno.");
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity atualizar(@PathVariable Long id, @RequestBody Produto produto) {
+    @PutMapping("/{idP}")
+    public ResponseEntity atualizar(@PathVariable Long idP, @RequestBody Produto produto) {
         if (produto.getNome() == null || 
                 produto.getMarca() == null)
                     return ResponseEntity.status(400)
                         .body("Dados incorretos.");
-        produto.setIdP(id);
+        produto.setIdP(idP);
         produto = produtoService.salvar(produto);
         return ResponseEntity.status(201).body(produto);
     }

@@ -1,5 +1,8 @@
 package br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,9 +27,14 @@ public class UsuarioController {
 
     @GetMapping
     public ResponseEntity listar() {
-        var usuarios = usuarioService.listar();
-        if (usuarios.isEmpty())
-            return ResponseEntity.ok().body("Lista Vazia");
+        List<Usuario> usuarios = new ArrayList<>();
+        try {
+            usuarios = usuarioService.listar();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // TODO: handle exception
+        }
+        
         return ResponseEntity.ok().body(usuarios);
     }
 
@@ -34,10 +42,8 @@ public class UsuarioController {
     public ResponseEntity inserir(@RequestBody Usuario usuario) {
         if (
             usuario.getUsername() == null || 
-            usuario.getEmail() == null || 
             usuario.getPassword() == null)
-            return ResponseEntity.status(400)
-                    .body("Username, Email e Senha são obrigatórios.");
+            return ResponseEntity.status(400).body("UCampos obrigatórios não preenchidos.");
         
         usuario = usuarioService.salvar(usuario);
         if (usuario.getId() != 0)

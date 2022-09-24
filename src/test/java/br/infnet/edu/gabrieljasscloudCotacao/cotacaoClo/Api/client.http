@@ -11,18 +11,7 @@ Authorization: Basic client-id-test:client-secret-test
 grant_type=password&username=tresquatro&password=123
 // informações de um usuário
 
-###
 
-POST http://localhost:8081/usuarios
-Content-Type: application/json
-
-{
-  "id": 0,
-  "nome": "string",
-  "email": "string",
-  "password": "123",
-  "username": "tresquatro"
-}
 
 ###
 GET http://localhost:8081/produtos
@@ -31,15 +20,15 @@ Authorization: Bearer aDygfgus7anZFH0rF4aq7WwNAM0
 ###
 
 GET  http://localhost:8081/produtos/1
-Authorization: Bearer X6frajBDEALRKR6ev2Ah3O28bMU
+Authorization: Bearer gpfgaxdXx-q05Gd6SfvYPN-iKRQ
 
 ### Cadastra produto
 POST http://localhost:8081/produtos
-Authorization: Bearer fbO7ceFHJBX4wYeYEcLxVUf6QTY
+Authorization: Bearer WbLIGJ70cGZ_30QXR5wLSK1SOhw
 Content-Type: application/json
 
 {
-    "nome": "Pasta de amendoin",
+    "nome": "Pasta de Banana",
     "marca": "Eskik",
     "cotacoes": [
     {
@@ -71,6 +60,23 @@ Content-Type: application/json
 
 DELETE http://localhost:8080/produtos/1
 ###
+
+
+
+
+
+###
+
+POST http://localhost:8081/usuarios
+Content-Type: application/json
+
+{
+  "id": 0,
+  "nome": "string",
+  "email": "string",
+  "password": "123",
+  "username": "tresquatro"
+}
 
 GET http://localhost:8080/usuarios
 ###

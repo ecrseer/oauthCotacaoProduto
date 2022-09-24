@@ -24,6 +24,9 @@ public class Cotacao implements Serializable {
     @JsonBackReference(value = "cotacoesProduto")
     private Produto produtoFk;
 
+    public Cotacao(){
+        
+    }
     public Cotacao(int idC, String nome, String fornecedor, float precoCotado, Produto produtoFk) {
         this.idC = idC;
         this.nome = nome;

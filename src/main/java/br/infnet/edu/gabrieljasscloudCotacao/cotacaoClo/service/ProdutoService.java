@@ -18,14 +18,17 @@ public class ProdutoService {
     public List<Produto> listar() {
         return produtoRepository.findAll();
     }
-    // criar
+    
+    public Produto exibir(Long id) {
+        return produtoRepository.findByIdP(id);
+    }
+    
     public Produto salvar(Produto produto) {
         return produtoRepository.save(produto);
     }
-    // exibir
-    public Produto exibir(Long id) {
-        return produtoRepository.findById(id).get();
-    }
+    
+
+    
     // atualizar
     public Produto atualizar(Produto produto) {
         return this.salvar(produto);
