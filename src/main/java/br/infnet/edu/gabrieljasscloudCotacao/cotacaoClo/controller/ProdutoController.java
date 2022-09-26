@@ -41,6 +41,20 @@ public class ProdutoController {
     @GetMapping("/{idP}")
     public ResponseEntity exibirUm(@PathVariable long idP) {
         try {
+            var produto = produtoService.exibir(idP);            
+            return ResponseEntity.ok().body(produto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity
+                    .status(404)
+                    .body("Nenhum produto encontrado.");
+        }
+
+    }
+
+    @GetMapping("/gerarCsv/{idP}")
+    public ResponseEntity gerarCsv(@PathVariable long idP) {
+        try {
             var produto = produtoService.exibir(idP);
             csvService.ProdutoToCsv(produto);
             return ResponseEntity.ok().body(produto);
@@ -53,21 +67,26 @@ public class ProdutoController {
 
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity remover(@PathVariable Long id) {
+        produtoService.excluir(id);
+        return ResponseEntity.ok().body("Produto excluido.");
+    }
+
     @RequestMapping(path = "", method = RequestMethod.POST,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity inserir(@RequestPart MultipartFile imagem,@RequestPart Produto nome) {
-        System.out.println("FOI"+nome);
-        return ResponseEntity.status(444).body("FOI");
-        /* Produto produto = dto.makeClone();
+    public ResponseEntity inserirProdutoComImagem(@RequestPart MultipartFile imagem,@RequestPart Produto produto) {
+        
+        
         if (produto.getNome() == null ||
                 produto.getMarca() == null)
             return ResponseEntity.status(400)
                     .body("Dados incorretos.");
 
-        var produtoSem = produtoService.salvar(produto.makeClone());
-        if (produto.getIdP() != 0)
+        var produtoSem = produtoService.salvarComImagem(produto,imagem);
+        if (produtoSem.getIdP() != 0)
             return ResponseEntity.status(201).body(produto);
 
-        return ResponseEntity.status(500).body("Erro interno."); */
+        return ResponseEntity.status(500).body("Erro interno.");
     }
 
     @PutMapping("/{idP}")
@@ -80,27 +99,7 @@ public class ProdutoController {
         produto = produtoService.salvar(produto);
         return ResponseEntity.status(201).body(produto);
     }
+ 
 
-    /*
-     * @PatchMapping("/{id}")
-     * public ResponseEntity alterar(@PathVariable Long id, @RequestBody Produto
-     * produto) {
-     * for (Produto p : produtos) {
-     * if (p.getId() == id) {
-     * var nome = produto.getNome();
-     * p.setNome(nome);
-     * var marca = produto.getMarca();
-     * p.setMarca(marca);
-     * return ResponseEntity.ok().body(p);
-     * }
-     * }
-     * return ResponseEntity.status(500).body("Erro interno.");
-     * }
-     */
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity remover(@PathVariable Long id) {
-        produtoService.excluir(id);
-        return ResponseEntity.ok().body("Produto excluido.");
-    }
+   
 }

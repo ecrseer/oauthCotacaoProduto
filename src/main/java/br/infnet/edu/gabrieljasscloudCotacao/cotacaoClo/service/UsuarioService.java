@@ -41,8 +41,17 @@ public class UsuarioService
         return this.salvar(usuario);
     }
     // excluir
-    public void excluir(Long id) {
-        usuariosRepository.deleteById(id);
+    public boolean excluir(Long id) {
+        
+        try {
+            usuariosRepository.deleteById(id);    
+            return true;
+        } catch (Exception e) {
+            // TODO: handle exception
+            return false;
+        }
+        
+        
     }
     @Override
     public UserDetails loadUserByUsername(String username) 

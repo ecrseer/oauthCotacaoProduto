@@ -47,6 +47,19 @@ public class ProdutoService {
         File filePointer = amazonService.convertMultiPartToFile(multipartFile, new File(localPath));
         return amazonService.uploadSetFile(DEFAULT_BUCKET, fileKeyAWS, filePointer);
     }
+    public Produto salvarComImagem(Produto produtoSemImagem,MultipartFile imagemDoProduto) {
+        //Produto produtoSemImagem = produto.makeClone();
+
+        try {
+            salvaImagemProduto(produtoSemImagem, imagemDoProduto);
+            return produtoRepository.save(produtoSemImagem);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return null;
+
+    }
+
     public Produto salvar(Produto produtoSemImagem) {
         //Produto produtoSemImagem = produto.makeClone();
 

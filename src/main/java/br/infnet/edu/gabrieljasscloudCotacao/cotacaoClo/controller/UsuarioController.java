@@ -43,7 +43,7 @@ public class UsuarioController {
         if (
             usuario.getUsername() == null || 
             usuario.getPassword() == null)
-            return ResponseEntity.status(400).body("UCampos obrigatórios não preenchidos.");
+            return ResponseEntity.status(400).body("Preencha username e password.");
         
         usuario = usuarioService.salvar(usuario);
         if (usuario.getId() != 0)
@@ -73,6 +73,14 @@ public class UsuarioController {
         usuario = usuarioService.atualizar(usuario);
         return ResponseEntity.ok().body(usuario);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity remover(@PathVariable("id") long id) {
+        boolean result = usuarioService.excluir(id);
+        if(!result){
+            return ResponseEntity.internalServerError().body("nao foi possivel excluir")
+        }
+        return ResponseEntity.ok().body("Usuário excluido.");
+    }
 
     @PatchMapping("/{id}")
     public ResponseEntity alterar(@PathVariable("id") int id,
@@ -82,9 +90,5 @@ public class UsuarioController {
         return ResponseEntity.ok().body(usuario);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity remover(@PathVariable("id") long id) {
-        usuarioService.excluir(id);
-        return ResponseEntity.ok().body("Usuário excluido.");
-    }
+    
 }

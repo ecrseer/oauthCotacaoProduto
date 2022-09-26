@@ -1,17 +1,9 @@
-###
-GET http://localhost:8081
-
-###
-# Authorization: Basic username:password
-###
+### pega token
 POST http://localhost:8081/oauth/token
 Content-Type: application/x-www-form-urlencoded
 Authorization: Basic client-id-test:client-secret-test
 
 grant_type=password&username=tresquatro&password=123
-// informações de um usuário
-
-
 
 ###
 GET http://localhost:8081/produtos
@@ -22,22 +14,7 @@ Authorization: Bearer aDygfgus7anZFH0rF4aq7WwNAM0
 GET  http://localhost:8081/produtos/1
 Authorization: Bearer gpfgaxdXx-q05Gd6SfvYPN-iKRQ
 
-### Cadastra produto
-POST http://localhost:8081/produtos
-Authorization: Bearer Y8-Fy-UuzIqhOnCbcuzymkzc_OY
-Content-Type: application/json
-
-{
-    "nome": "Pasta de Banana",
-    "marca": "Eskik",
-    "cotacoes": [
-    {
-      "nome": "INTERNET",
-      "fornecedor": "OLX",
-      "precoCotado": 20
-    }
-  ]
-}
+ 
 
 ### Cadastra produto
 POST http://localhost:8081/produtos
@@ -50,15 +27,13 @@ Content-Type: image/png
 
 < ./1.png
 --MultipartBoundry
-Content-Disposition: form-data; name="nome"
+Content-Disposition: form-data; name="produto"
 Content-Type: application/json
 
-{"nome": "Pasta de Banana","marca": "Eskik","cotacoes": [{"nome": "INTERNET","fornecedor": "OLX","precoCotado": 20}]}
+{"nome": "Pasta de MELAO","marca": "Eskik","cotacoes": [{"nome": "INTERNET","fornecedor": "OLX","precoCotado": 20}]}
 --MultipartBoundry--
-
-
-
-
+ 
+ 
 ###
 
 PUT http://localhost:8081/produtos/1
@@ -68,14 +43,7 @@ Content-Type: application/json
     "marca": "Dell"
 }
 ###
-
-PATCH http://localhost:8081/produtos/1
-Content-Type: application/json
-
-{
-    "nome": "Notebook"
-}
-
+ 
 ###
 
 DELETE http://localhost:8081/produtos/1
