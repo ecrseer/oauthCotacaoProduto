@@ -24,7 +24,7 @@ Authorization: Bearer gpfgaxdXx-q05Gd6SfvYPN-iKRQ
 
 ### Cadastra produto
 POST http://localhost:8081/produtos
-Authorization: Bearer WbLIGJ70cGZ_30QXR5wLSK1SOhw
+Authorization: Bearer Y8-Fy-UuzIqhOnCbcuzymkzc_OY
 Content-Type: application/json
 
 {
@@ -39,9 +39,29 @@ Content-Type: application/json
   ]
 }
 
+### Cadastra produto
+POST http://localhost:8081/produtos
+Authorization: Bearer RmkMJZwrp7JXAWU_bSqav9aJBF4
+Content-Type: multipart/form-data; boundary=MultipartBoundry
+
+--MultipartBoundry
+Content-Disposition: form-data; name="imagem"; filename="1.png"
+Content-Type: image/png
+
+< ./1.png
+--MultipartBoundry
+Content-Disposition: form-data; name="nome"
+Content-Type: application/json
+
+{"nome": "Pasta de Banana","marca": "Eskik","cotacoes": [{"nome": "INTERNET","fornecedor": "OLX","precoCotado": 20}]}
+--MultipartBoundry--
+
+
+
+
 ###
 
-PUT http://localhost:8080/produtos/1
+PUT http://localhost:8081/produtos/1
 Content-Type: application/json
 
 {
@@ -49,7 +69,7 @@ Content-Type: application/json
 }
 ###
 
-PATCH http://localhost:8080/produtos/1
+PATCH http://localhost:8081/produtos/1
 Content-Type: application/json
 
 {
@@ -58,15 +78,17 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:8080/produtos/1
+DELETE http://localhost:8081/produtos/1
 ###
 
 
 
+### todos usuarios
+GET http://localhost:8081/usuarios
+
 
 
 ###
-
 POST http://localhost:8081/usuarios
 Content-Type: application/json
 
@@ -78,13 +100,12 @@ Content-Type: application/json
   "username": "tresquatro"
 }
 
-GET http://localhost:8080/usuarios
-###
 
-GET http://localhost:8080/usuarios/1
 ###
+GET http://localhost:8081/usuarios/1
 
-POST http://localhost:8080/usuarios
+###
+POST http://localhost:8081/usuarios
 Content-Type: application/json
 
 {
@@ -96,7 +117,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/usuarios
+POST http://localhost:8081/usuarios
 Content-Type: application/json
 
 {
@@ -105,7 +126,7 @@ Content-Type: application/json
 }
 ###
 
-PUT http://localhost:8080/usuarios
+PUT http://localhost:8081/usuarios
 Content-Type: application/json
 
 {
@@ -116,4 +137,4 @@ Content-Type: application/json
 }
 ###
 
-DELETE http://localhost:8080/usuarios/1
+DELETE http://localhost:8081/usuarios/1

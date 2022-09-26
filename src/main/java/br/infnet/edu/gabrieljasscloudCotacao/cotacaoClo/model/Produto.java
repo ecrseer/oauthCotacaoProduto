@@ -39,11 +39,14 @@ public class Produto {
     }
 
 
-    public Produto(int id, String nome, String marca, List<Cotacao> cotacoes) {
+    public Produto(long id, String nome, String marca, List<Cotacao> cotacoes) {
         this.idP = id;
         this.nome = nome;
         this.cotacoes=cotacoes;
         
+    }
+    public Produto makeClone(){
+        return new Produto(idP,nome,marca,cotacoes);
     }
 
 

@@ -17,6 +17,26 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+	<dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+	<!-- aws utils -->
+
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.12.283</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+
+		<!-- aws utils -->
 		
 		<dependency>
 			<groupId>org.springdoc</groupId>

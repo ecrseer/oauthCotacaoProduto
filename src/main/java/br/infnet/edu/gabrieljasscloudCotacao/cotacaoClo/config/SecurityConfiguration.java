@@ -28,6 +28,7 @@ public class SecurityConfiguration {
                     "/swagger-ui.html/**", 
                     "/docs/**",
                     "/usuarios**",
+                    "/produtos**",
                     "/produtos/**");
     }
 

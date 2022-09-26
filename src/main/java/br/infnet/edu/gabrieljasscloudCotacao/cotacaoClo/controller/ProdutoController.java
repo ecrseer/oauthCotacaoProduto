@@ -1,6 +1,7 @@
 package br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,8 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.dtos.ProdutoComImagem;
 import br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.model.Produto;
 import br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.service.CsvService;
 import br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.service.ProdutoService;
@@ -48,46 +53,51 @@ public class ProdutoController {
 
     }
 
-    @PostMapping
-    public ResponseEntity inserir(@RequestBody Produto produto) {
-        if (produto.getNome() == null || 
+    @RequestMapping(path = "", method = RequestMethod.POST,consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity inserir(@RequestPart MultipartFile imagem,@RequestPart Produto nome) {
+        System.out.println("FOI"+nome);
+        return ResponseEntity.status(444).body("FOI");
+        /* Produto produto = dto.makeClone();
+        if (produto.getNome() == null ||
                 produto.getMarca() == null)
             return ResponseEntity.status(400)
-            .body("Dados incorretos.");
+                    .body("Dados incorretos.");
 
-        produto = produtoService.salvar(produto);
+        var produtoSem = produtoService.salvar(produto.makeClone());
         if (produto.getIdP() != 0)
             return ResponseEntity.status(201).body(produto);
 
-        return ResponseEntity.status(500).body("Erro interno.");
+        return ResponseEntity.status(500).body("Erro interno."); */
     }
 
     @PutMapping("/{idP}")
     public ResponseEntity atualizar(@PathVariable Long idP, @RequestBody Produto produto) {
-        if (produto.getNome() == null || 
+        if (produto.getNome() == null ||
                 produto.getMarca() == null)
-                    return ResponseEntity.status(400)
-                        .body("Dados incorretos.");
+            return ResponseEntity.status(400)
+                    .body("Dados incorretos.");
         produto.setIdP(idP);
         produto = produtoService.salvar(produto);
         return ResponseEntity.status(201).body(produto);
     }
 
-    /* @PatchMapping("/{id}")
-    public ResponseEntity alterar(@PathVariable Long id, @RequestBody Produto produto) {
-        for (Produto p : produtos) {
-            if (p.getId() == id) {
-                var nome = produto.getNome();
-                p.setNome(nome);
-                var marca = produto.getMarca();
-                p.setMarca(marca);
-                return ResponseEntity.ok().body(p);
-            }
-        }
-        return ResponseEntity.status(500).body("Erro interno.");
-    }
- */
-    
+    /*
+     * @PatchMapping("/{id}")
+     * public ResponseEntity alterar(@PathVariable Long id, @RequestBody Produto
+     * produto) {
+     * for (Produto p : produtos) {
+     * if (p.getId() == id) {
+     * var nome = produto.getNome();
+     * p.setNome(nome);
+     * var marca = produto.getMarca();
+     * p.setMarca(marca);
+     * return ResponseEntity.ok().body(p);
+     * }
+     * }
+     * return ResponseEntity.status(500).body("Erro interno.");
+     * }
+     */
+
     @DeleteMapping("/{id}")
     public ResponseEntity remover(@PathVariable Long id) {
         produtoService.excluir(id);
