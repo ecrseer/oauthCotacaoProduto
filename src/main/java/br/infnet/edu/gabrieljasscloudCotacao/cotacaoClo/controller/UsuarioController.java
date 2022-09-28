@@ -39,7 +39,7 @@ public class UsuarioController {
     }
 
     @PostMapping()
-    public ResponseEntity inserir(@RequestBody Usuario usuario) {
+    public ResponseEntity inserirUsuario(@RequestBody Usuario usuario) {
         if (
             usuario.getUsername() == null || 
             usuario.getPassword() == null)
@@ -59,36 +59,37 @@ public class UsuarioController {
         return ResponseEntity.ok().body(usuario);
     }
 
+    @PatchMapping("/{idUsuario}")
+    public ResponseEntity alterar(@PathVariable("idUsuario") int idUsuario,
+            @RequestBody Usuario usuario) {
+        usuario.setId(idUsuario);
+        usuario = usuarioService.atualizar(usuario);
+        return ResponseEntity.ok().body(usuario);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity atualizar(@PathVariable("id") int id,
             @RequestBody Usuario usuario) {
         if (
-            usuario.getUsername() == null || 
             usuario.getEmail() == null || 
+            usuario.getUsername() == null || 
             usuario.getPassword() == null)
             return ResponseEntity.status(400)
-                    .body("Username, Email e Senha são obrigatórios.");
+                    .body("Os campos são obrigatórios.");
         
         usuario.setId(id);
         usuario = usuarioService.atualizar(usuario);
         return ResponseEntity.ok().body(usuario);
     }
-    @DeleteMapping("/{id}")
-    public ResponseEntity remover(@PathVariable("id") long id) {
-        boolean result = usuarioService.excluir(id);
+    @DeleteMapping("/{idUsuario}")
+    public ResponseEntity remover(@PathVariable("idUsuario") long idUsuario) {
+        boolean result = usuarioService.excluir(idUsuario);
         if(!result){
-            return ResponseEntity.internalServerError().body("nao foi possivel excluir")
+            return ResponseEntity.internalServerError().body("nao foi possivel excluir");
         }
         return ResponseEntity.ok().body("Usuário excluido.");
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity alterar(@PathVariable("id") int id,
-            @RequestBody Usuario usuario) {
-        usuario.setId(id);
-        usuario = usuarioService.atualizar(usuario);
-        return ResponseEntity.ok().body(usuario);
-    }
 
     
 }
