@@ -23,13 +23,11 @@ public class SecurityConfiguration {
             web
                 .ignoring()
                 .antMatchers(
-                    "/",
+                    "/**",
                     "/swagger-ui/**",
                     "/swagger-ui.html/**", 
                     "/docs/**",
-                    "/usuarios**",
-                    "/produtos**",
-                    "/produtos/**");
+                    "/usuarios**");
     }
 
     @Bean

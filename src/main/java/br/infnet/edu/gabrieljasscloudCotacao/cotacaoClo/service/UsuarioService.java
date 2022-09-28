@@ -19,11 +19,11 @@ public class UsuarioService
     @Autowired
     UsuarioRepository usuariosRepository;
 
-    // Listar
+    
     public List<Usuario> listar() {
         return usuariosRepository.findAll();
     }
-    // criar
+    
     public Usuario salvar(Usuario usuario) {
         BCryptPasswordEncoder encoder = 
                 new BCryptPasswordEncoder();
@@ -31,28 +31,28 @@ public class UsuarioService
         String bcryptPassword = encoder.encode(password);
         usuario.setPassword(bcryptPassword);
         return usuariosRepository.save(usuario);
-    }
-    // exibir
+    } 
+
     public Usuario exibir(Long id) {
         return usuariosRepository.findById(id).get();
     }
-    // atualizar
+    
     public Usuario atualizar(Usuario usuario) {
         return this.salvar(usuario);
     }
-    // excluir
-    public boolean excluir(Long id) {
+     public boolean excluir(Long id) {
         
         try {
             usuariosRepository.deleteById(id);    
             return true;
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (Exception err) {
+            err.printStackTrace();
             return false;
         }
-        
-        
+                
     }
+
+
     @Override
     public UserDetails loadUserByUsername(String username) 
             throws UsernameNotFoundException {

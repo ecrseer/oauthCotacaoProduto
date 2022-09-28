@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.Response;
+
 import br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.dtos.ProdutoComImagem;
+import br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.model.Cotacao;
 import br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.model.Produto;
 import br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.service.CsvService;
 import br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.service.ProdutoService;
@@ -82,11 +85,22 @@ public class ProdutoController {
             return ResponseEntity.status(400)
                     .body("Dados incorretos.");
 
-        var produtoSem = produtoService.salvarComImagem(produto,imagem);
+        var produtoSem = produtoService.salvaProdutoComImagem(produto,imagem);
         if (produtoSem.getIdP() != 0)
             return ResponseEntity.status(201).body(produto);
 
         return ResponseEntity.status(500).body("Erro interno.");
+    }
+    
+    @PostMapping("/cotacao")
+    public ResponseEntity criaCotacao(@RequestBody Cotacao cotacao){
+        try {
+            var result = produtoService.salvaCotacao(cotacao);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
     @PutMapping("/{idP}")
@@ -96,7 +110,7 @@ public class ProdutoController {
             return ResponseEntity.status(400)
                     .body("Dados incorretos.");
         produto.setIdP(idP);
-        produto = produtoService.salvar(produto);
+        produto = produtoService.salvaProduto(produto);
         return ResponseEntity.status(201).body(produto);
     }
  

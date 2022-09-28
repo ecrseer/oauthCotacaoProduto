@@ -49,7 +49,16 @@ Content-Type: application/json
 DELETE http://localhost:8081/produtos/1
 ###
 
+###
+POST http://localhost:8081/produtos/cotacao
+Content-Type: application/json
 
+{
+  "nome": "cocacola",
+  "fornecedor": "coca",
+  "precoCotado": 2
+  
+}
 
 ### todos usuarios
 GET http://localhost:8081/usuarios
