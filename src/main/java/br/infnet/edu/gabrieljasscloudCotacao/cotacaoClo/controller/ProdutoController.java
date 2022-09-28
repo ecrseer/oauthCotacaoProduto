@@ -1,5 +1,10 @@
 package br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +20,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.Response;
+import com.amazonaws.Response; 
+import com.amazonaws.util.IOUtils;
 
 import br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.dtos.ProdutoComImagem;
 import br.infnet.edu.gabrieljasscloudCotacao.cotacaoClo.model.Cotacao;
@@ -70,6 +76,29 @@ public class ProdutoController {
 
     }
 
+    @GetMapping(value = "/imagem/{idP}",
+                produces = MediaType.IMAGE_PNG_VALUE)
+    public ResponseEntity getImagemDoProduto(@PathVariable long idP) throws IOException {
+        try {
+            File imagemDoProdut = produtoService.getProdutoImage(idP);
+            System.out.println("caminhoLocalProdt::"+imagemDoProdut.getAbsolutePath());
+            
+            FileInputStream in = new FileInputStream(imagemDoProdut);
+            
+
+            byte[] bytes = IOUtils.toByteArray(in);
+            return ResponseEntity.ok(bytes);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity
+                    .internalServerError()
+                    .body("Falha ao encontrar arquivo");
+                    
+        }
+
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity remover(@PathVariable Long id) {
         produtoService.excluir(id);
@@ -83,7 +112,7 @@ public class ProdutoController {
         if (produto.getNome() == null ||
                 produto.getMarca() == null)
             return ResponseEntity.status(400)
-                    .body("Dados incorretos.");
+                    .body("Faltou dados do produto.");
 
         var produtoSem = produtoService.salvaProdutoComImagem(produto,imagem);
         if (produtoSem.getIdP() != 0)
@@ -105,10 +134,11 @@ public class ProdutoController {
 
     @PutMapping("/{idP}")
     public ResponseEntity atualizar(@PathVariable Long idP, @RequestBody Produto produto) {
-        if (produto.getNome() == null ||
-                produto.getMarca() == null)
+        if (idP == 0){
             return ResponseEntity.status(400)
-                    .body("Dados incorretos.");
+            .body("Falta id do produto");
+        }
+            
         produto.setIdP(idP);
         produto = produtoService.salvaProduto(produto);
         return ResponseEntity.status(201).body(produto);

@@ -56,8 +56,9 @@ public class ProdutoService {
 
     public Produto salvaProdutoComImagem(Produto produtoSemImagem, MultipartFile imagemDoProduto) {
         try {
-            salvaImagemProduto(produtoSemImagem, imagemDoProduto);
-            return produtoRepository.save(produtoSemImagem);
+            Produto produtoSalvo = produtoRepository.save(produtoSemImagem);
+            salvaImagemProduto(produtoSalvo, imagemDoProduto);
+            return produtoSalvo;
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
@@ -85,6 +86,29 @@ public class ProdutoService {
         }
         return salva;
 
+    }
+
+    public File getProdutoImage(long produtoId){
+
+        Produto produto = produtoRepository.findByIdP(produtoId);
+        if(produto==null) return null;
+
+        String newName = "/produtoImagem.png";
+        String fileKeyAWS = "produtos/" + produto.getIdP() + "" + newName;
+        String localPath = "src/main/resources/static/images/"
+                + produto.getIdP() + newName;
+        File arquivoLocal = new File(localPath);
+
+        try {
+            if(!arquivoLocal.exists()){
+                amazonService.getFileFrom(DEFAULT_BUCKET, fileKeyAWS, arquivoLocal);
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return arquivoLocal;
     }
 
     public Produto atualizar(Produto produto) {

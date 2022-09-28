@@ -5,20 +5,24 @@ Authorization: Basic client-id-test:client-secret-test
 
 grant_type=password&username=tresquatro&password=123
 
-###
+### lista todos produtos
 GET http://localhost:8081/produtos
-Authorization: Bearer aDygfgus7anZFH0rF4aq7WwNAM0
+Authorization: Bearer a-smYecmq3yprtw4Lj1LGeqVaPo
 
-###
-
-GET  http://localhost:8081/produtos/1
+### pega um produto por id
+GET  http://localhost:8081/produtos/44
 Authorization: Bearer gpfgaxdXx-q05Gd6SfvYPN-iKRQ
+
+
+### pega imagem do produto por id
+GET  http://localhost:8081/produtos/imagem/50
+Authorization: Bearer cPl9Os_-gTbt6GogqA10AwQLCBA
 
  
 
-### Cadastra produto
+### cadastra produto com imagem
 POST http://localhost:8081/produtos
-Authorization: Bearer RmkMJZwrp7JXAWU_bSqav9aJBF4
+Authorization: Bearer EHfOfVmAUsvAANEu3Bhq9B_1gnc
 Content-Type: multipart/form-data; boundary=MultipartBoundry
 
 --MultipartBoundry
@@ -30,17 +34,18 @@ Content-Type: image/png
 Content-Disposition: form-data; name="produto"
 Content-Type: application/json
 
-{"nome": "Pasta de MELAO","marca": "Eskik","cotacoes": [{"nome": "INTERNET","fornecedor": "OLX","precoCotado": 20}]}
+{"nome": "CARNE de MELAO","marca": "INFNET","cotacoes": [{"nome": "INTERNET","fornecedor": "OLX","precoCotado": 20}]}
 --MultipartBoundry--
  
  
-###
-
-PUT http://localhost:8081/produtos/1
+###modifica um produto
+PUT http://localhost:8081/produtos/44
 Content-Type: application/json
 
-{
-    "marca": "Dell"
+{ 
+  "nome": "MELAO",
+  "marca": "MELAO",
+  "cotacoes": null
 }
 ###
  
@@ -86,9 +91,10 @@ POST http://localhost:8081/usuarios
 Content-Type: application/json
 
 {
-    "nome": "Thiago",
-    "email": "thi@go.com",
-    "senha": "654321",
+    "nome": "gabr",
+    "email": "g@b.e",
+    "username": "g@b.e",
+    "password": "123",
     "perfil": "admin"
 }
 
@@ -98,8 +104,11 @@ POST http://localhost:8081/usuarios
 Content-Type: application/json
 
 {
-    "nome": "Thiago",
-    "email": "thi@go.com"
+    
+    "email": "g@b.e",
+    "username": "g@b.e",
+    "password": "123",
+    "perfil": "admin"
 }
 ###
 
@@ -107,10 +116,11 @@ PUT http://localhost:8081/usuarios
 Content-Type: application/json
 
 {
-    "nome": "Thiago",
-    "email": "thi@go.com",
-    "senha": "654321",
-    "perfil": "admin"
+    
+    "email": "g2@b.e",
+    "username": "g@b.e",
+    "password": "123",
+    "perfil": "admin",
 }
 ###
 

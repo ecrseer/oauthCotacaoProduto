@@ -98,6 +98,7 @@ public class AmazonService {
     public PutObjectResult uploadSetFile(String bucketName, String fileKey,
                                          File localFile) {
         try {
+            System.out.println("fileKey"+fileKey);
             return amazonS3.putObject(bucketName, fileKey, localFile);
         } catch (Exception e) {
             e.printStackTrace();
