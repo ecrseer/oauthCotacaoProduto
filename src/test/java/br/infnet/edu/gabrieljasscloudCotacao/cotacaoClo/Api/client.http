@@ -7,7 +7,7 @@ grant_type=password&username=tresquatro&password=123
 
 ### lista todos produtos
 GET http://localhost:8081/produtos
-Authorization: Bearer a-smYecmq3yprtw4Lj1LGeqVaPo
+Authorization: Bearer zcGw2NVy9erl3_UO6PGHD8W8ibE
 
 ### pega um produto por id
 GET  http://localhost:8081/produtos/44
@@ -15,14 +15,14 @@ Authorization: Bearer gpfgaxdXx-q05Gd6SfvYPN-iKRQ
 
 
 ### pega imagem do produto por id
-GET  http://localhost:8081/produtos/imagem/50
+GET  http://localhost:8081/produtos/imagem/11
 Authorization: Bearer cPl9Os_-gTbt6GogqA10AwQLCBA
 
  
 
 ### cadastra produto com imagem
 POST http://localhost:8081/produtos
-Authorization: Bearer EHfOfVmAUsvAANEu3Bhq9B_1gnc
+Authorization: Bearer zcGw2NVy9erl3_UO6PGHD8W8ibE
 Content-Type: multipart/form-data; boundary=MultipartBoundry
 
 --MultipartBoundry
@@ -34,7 +34,7 @@ Content-Type: image/png
 Content-Disposition: form-data; name="produto"
 Content-Type: application/json
 
-{"nome": "CARNE de MELAO","marca": "INFNET","cotacoes": [{"nome": "INTERNET","fornecedor": "OLX","precoCotado": 20}]}
+{"nome": "NOVOINF","marca": "INFNET","cotacoes": [{"nome": "INTERNET","fornecedor": "OLX","precoCotado": 20}]}
 --MultipartBoundry--
  
  
@@ -49,10 +49,11 @@ Content-Type: application/json
 }
 ###
  
-###
+### remove produto e imagem dele
+DELETE http://localhost:8081/produtos/11
+Authorization: Bearer zcGw2NVy9erl3_UO6PGHD8W8ibE
 
-DELETE http://localhost:8081/produtos/1
-###
+
 
 ###
 POST http://localhost:8081/produtos/cotacao

@@ -151,9 +151,8 @@ public class AmazonService {
         return false;
     }
 
-    public boolean getFileFrom(String bucketName, String key, File filePointer) {
-        try {
-
+    public boolean getFileFrom(String bucketName, String key, File filePointer) {        
+        try {            
             S3Object s3Object = amazonS3.getObject(bucketName, key);
             S3ObjectInputStream stream = s3Object.getObjectContent();
 
@@ -163,6 +162,10 @@ public class AmazonService {
             System.out.println(er.getMessage());
         }
         return false;
+    }
+    
+    public void removeFile(String bucketName,String key){
+        amazonS3.deleteObject(bucketName, key);
     }
 
 
